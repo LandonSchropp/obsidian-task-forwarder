@@ -2,15 +2,25 @@
 
 This is a plugin build around my _personal_ workflow for importing tasks from previous daily notes.
 Since it's catered specifically to the way that I work, I'm not releasing it to the Obsidian
-Community Plugin store.
+Community Plugin store. It also doesn't include any settings for the same reason.
 
 If you stumble across this plugin and would like to see it released, let me know, and I may
 reconsider.
 
-## Setup
+## Assumptions
 
-This plugin currently only work with the Daily Notes plugin. If there's demand, I can add support
-for [Periodic Notes](https://github.com/liamcain/obsidian-periodic-notes).
+Since this plugin isn't being released and it's tailored to my personal workflow, it makes a few
+assumptions about the structures of the notes it interacts with.
+
+- This plugin currently only work with the Daily Notes plugin. If there's demand, I can add support
+  for [Periodic Notes](https://github.com/liamcain/obsidian-periodic-notes).
+- All daily notes must be located in the `Daily Notes` folder.
+- The notes must be in alphabetical order. (It would likely be better to parse the note names using
+  the scheme identified in the Daily Notes plugin, but this isn't necessary for my notes.)
+- The note will look at the previous seven days worth of notes.
+- All tasks are imported under the first heading labeled "Tasks".
+
+## Setup
 
 This plugin should be used with a theme that supports alternative checkboxes, such as
 [Minimal](https://minimal.guide/checklists) or
