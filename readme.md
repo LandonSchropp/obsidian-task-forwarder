@@ -1,1 +1,48 @@
 # Task Forwarder
+
+This is a plugin build around my _personal_ workflow for importing tasks from previous daily notes.
+Since it's catered specifically to the way that I work, I'm not releasing it to the Obsidian
+Community Plugin store.
+
+If you stumble across this plugin and would like to see it released, let me know, and I may
+reconsider.
+
+## Setup
+
+This plugin currently only work with the Daily Notes plugin. If there's demand, I can add support
+for [Periodic Notes](https://github.com/liamcain/obsidian-periodic-notes).
+
+This plugin should be used with a theme that supports alternative checkboxes, such as
+[Minimal](https://minimal.guide/checklists) or
+[Things](https://github.com/colineckert/obsidian-things?tab=readme-ov-file#checkbox-styling).
+Otherwise, you won't be able to distinguish between the list types. It's also helpful to use a
+plugin like [List Cycler](https://github.com/LandonSchropp/obsidian-list-cycler/edit/main/readme.md)
+to quickly switch between task types.
+
+## How It Works
+
+Task Forwarder adds a new command, `Task Forwarder: Forward Tasks`. When you run this command, it
+will automatically collect the tasks from the last several days. Then, it handles each type of task
+in different ways:
+
+- **Completed tasks (`[x]`):** These are ignored. They're already completed, so there's no action to
+  take.
+
+- **Incomplete tasks (`[ ]`):** These are _also_ ignored. An incomplete item is treated as a task
+  that hasn't yet been considered. If you have any incomplete tasks in your previous daily notes,
+  Task Forwarder will display a warning.
+
+- **Forwarded tasks (`[>]`):** If you've mark a task as forwarded, then Task Forwarder will copy it to
+  the current day's note.
+
+* **Scheduled tasks (`[<]`):** Scheduled tasks are handled a little differently than forwarded
+  tasks. Like forwarded tasks, they're copied to the current day's note. However, unlike forwarded
+  tasks, they're removed from note where they originated. This is a convenient way of signaling that
+  a task should be recorded, but it's too early to act upon it.
+
+All other types of tasks are ignored by the plugin. It will also ignore any tasks that have already
+been imported into the current day, making the command idempotent. 😎
+
+> [!NOTE]  
+> In the future, instead of hardcoding the actions to perform with each task, I may make the actions
+> configurable. However, that's not worth it unless I decide to release the plugin.
