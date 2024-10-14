@@ -7,7 +7,7 @@ export default class TaskForwarderPlugin extends Plugin {
       id: "forward-tasks",
       name: "Forward Tasks",
       icon: "forward",
-      editorCallback: forwardTasks,
+      callback: () => forwardTasks(this.app),
     });
   }
 }
