@@ -1,8 +1,9 @@
 import { App, TFile } from "obsidian";
 import { Task } from "./types";
 import { SCHEDULED_TYPE } from "./constants";
-import { displayNotification } from "./notifications";
+import { displayNeutral, displaySuccess } from "./notifications";
 import { parseTasks } from "./parse-tasks";
+import { pluralize } from "./utilities";
 
 /** The regular expression used to determine the tasks section. */
 export const TASKS_HEADING_REGEX = /tasks/i;
@@ -37,7 +38,7 @@ export async function applyTasks(app: App, file: TFile, tasks: Task[]): Promise<
 
   // If there aren't any tasks to import, display a notice and return
   if (tasks.length === 0) {
-    displayNotification("There are no tasks to forward.");
+    displayNeutral("There are no tasks to forward.");
     return;
   }
 
@@ -57,4 +58,9 @@ export async function applyTasks(app: App, file: TFile, tasks: Task[]): Promise<
   ];
 
   await app.vault.modify(file, replacementLines.join("\n"));
+
+  // Display a success message.
+  displaySuccess(
+    `Forwarded ${tasks.length} ${pluralize("task", tasks.length)} to the current daily note.`,
+  );
 }

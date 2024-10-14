@@ -3,7 +3,7 @@ import { applyTasks } from "./apply-tasks";
 import { INCOMPLETE_TYPE, ACTIONABLE_TASK_TYPES } from "./constants";
 import { fetchDailyNotes } from "./files";
 import { importTasks } from "./import-tasks";
-import { displayNotification } from "./notifications";
+import { displayWarning } from "./notifications";
 
 /**
  * Forward tasks from the previous daily notes to the current daily note.
@@ -15,7 +15,7 @@ export async function forwardTasks(app: App): Promise<void> {
 
   // Ensure the notes are present
   if (today === undefined || yesterday === undefined) {
-    displayNotification("Could not find at least two daily notes to forward tasks.");
+    displayWarning("Could not find at least two daily notes to forward tasks.");
     return;
   }
 
@@ -28,9 +28,12 @@ export async function forwardTasks(app: App): Promise<void> {
 
   // If there are any incomplete tasks, display a warning and stop importing.
   if (incompleteTasks.length > 0) {
-    displayNotification("Some tasks from the previous daily notes are incomplete!");
+    displayWarning(
+      "Some tasks from the previous daily note are incomplete! Please complete them before forwarding.",
+    );
+    return;
   }
 
   // Apply the tasks into the current daily note
-  applyTasks(app, today, actionableTasks);
+  await applyTasks(app, today, actionableTasks);
 }
