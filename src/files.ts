@@ -1,15 +1,18 @@
-import { TFile, App } from "obsidian";
+import { TFile, App, TAbstractFile } from "obsidian";
 
 const DAILY_NOTES_FOLDER = "Daily Notes";
 
 /**
- * Fetches all notes from the provided folder and its subfolders.
- * @param vault The Obsidian vault instance.
- * @param folder The folder to fetch the notes from.
- * @returns The notes from the provided folder and its subfolders.
+ * Determines if the provided file is a daily note.
+ * @param file The file to check.
+ * @returns True if the file is a daily note, false otherwise.
  */
-export function fetchFilesFromFolder(app: App, folder: string): TFile[] {
-  return app.vault.getFiles().filter((file) => file.path.startsWith(folder));
+export function isDailyNote(file: TAbstractFile): boolean {
+  if (!(file instanceof TFile)) {
+    return false;
+  }
+
+  return file.path.startsWith(DAILY_NOTES_FOLDER) && file.extension === "md";
 }
 
 /**
@@ -19,14 +22,10 @@ export function fetchFilesFromFolder(app: App, folder: string): TFile[] {
  * @param numberOfDays The number of days to fetch the notes from.
  */
 export function fetchDailyNotes(app: App): [TFile | undefined, TFile | undefined] {
-  // Fetch all of the daily notes
-  const allDailyNotes = fetchFilesFromFolder(app, DAILY_NOTES_FOLDER);
+  const dailyNotes = app.vault
+    .getFiles()
+    .filter(isDailyNote)
+    .sort((a, b) => b.name.localeCompare(a.name));
 
-  // Sort files in descending order by their names
-  const sortedDailyNotes = allDailyNotes.sort((a, b) => b.name.localeCompare(a.name));
-
-  // Get today's and yesterday's notes
-  // Return a tuple of yesterday and today's daily notes
-  const [today, yesterday] = sortedDailyNotes;
-  return [today, yesterday];
+  return [dailyNotes[0], dailyNotes[1]];
 }
