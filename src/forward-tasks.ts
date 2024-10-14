@@ -1,9 +1,9 @@
 import { App } from "obsidian";
-import { fetchDailyNotes } from "../files";
-import { displayNotification } from "../notifications";
-import { applyTasks } from "../apply-tasks";
-import { importTasks } from "../import-tasks";
-import { ACTIONABLE_TASK_TYPES, INCOMPLETE_TYPE } from "../constants";
+import { applyTasks } from "./apply-tasks";
+import { INCOMPLETE_TYPE, ACTIONABLE_TASK_TYPES } from "./constants";
+import { fetchDailyNotes } from "./files";
+import { importTasks } from "./import-tasks";
+import { displayNotification } from "./notifications";
 
 /**
  * Forward tasks from the previous daily notes to the current daily note.

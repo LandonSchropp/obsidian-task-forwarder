@@ -1,5 +1,5 @@
 import { Plugin } from "obsidian";
-import { forwardTasks } from "./commands";
+import { forwardTasks } from "./forward-tasks";
 
 export default class TaskForwarderPlugin extends Plugin {
   async onload() {
