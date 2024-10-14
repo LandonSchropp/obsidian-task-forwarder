@@ -1,10 +1,5 @@
-import { TASK_TYPES } from "./constants";
-
-/** The task types that are actionable by this plugin. */
-export type TaskType = (typeof TASK_TYPES)[number];
-
-/** The necessary details of a task. */
+/** A task. */
 export type Task = {
-  type: TaskType;
+  type: string;
   text: string;
 };

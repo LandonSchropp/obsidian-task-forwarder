@@ -1,5 +1,4 @@
-import { TASK_TYPES } from "./constants";
-import { Task, TaskType } from "./types";
+import { Task } from "./types";
 
 /**
  * Parses a line of text into a Task object.
@@ -14,12 +13,8 @@ export function parseTask(line: string): Task | undefined {
     return;
   }
 
-  if (!TASK_TYPES.includes(match[1] as TaskType)) {
-    return;
-  }
-
   return {
-    type: match[1] as TaskType,
-    text: line,
+    type: match[1],
+    text: match[2],
   };
 }

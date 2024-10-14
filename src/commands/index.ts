@@ -3,7 +3,7 @@ import { fetchDailyNotes } from "../files";
 import { displayNotification } from "../notifications";
 import { applyTasks } from "../apply-tasks";
 import { importTasks } from "../import-tasks";
-import { INCOMPLETE_TYPE } from "../constants";
+import { ACTIONABLE_TASK_TYPES, INCOMPLETE_TYPE } from "../constants";
 
 /**
  * Forward tasks from the previous daily notes to the current daily note.
@@ -24,7 +24,7 @@ export async function forwardTasks(app: App): Promise<void> {
 
   // Filter out the incomplete tasks
   const incompleteTasks = tasks.filter((task) => task.type === INCOMPLETE_TYPE);
-  const actionableTasks = tasks.filter((task) => task.type !== INCOMPLETE_TYPE);
+  const actionableTasks = tasks.filter((task) => ACTIONABLE_TASK_TYPES.includes(task.type));
 
   console.log(incompleteTasks);
   console.log(actionableTasks);
