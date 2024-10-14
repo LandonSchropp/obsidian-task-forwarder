@@ -1,6 +1,7 @@
 import { App, TFile } from "obsidian";
-import { readTasks } from "./read-tasks";
 import { Task } from "./types";
+import { parseTasks } from "./parse-tasks";
+import { SCHEDULED_TYPE } from "./constants";
 
 /** A regular expression for an individual task. */
 export const TASK_REGEX = /^\s*[-*] \[(.)\] (.*)$/;
@@ -15,6 +16,19 @@ export const TASK_REGEX = /^\s*[-*] \[(.)\] (.*)$/;
  * are returned. The order of the tasks is preserved.
  */
 export async function importTasks(app: App, file: TFile): Promise<Task[]> {
-  // TODO: Remove scheduled tasks.
-  return await readTasks(app, file);
+  // Read the lines and their tasks
+  const lines = (await app.vault.read(file)).split("\n");
+  const tasks = parseTasks(lines);
+
+  // Remove the lines from the file's content
+  const linesToRemove = tasks
+    .filter((task) => task.type === SCHEDULED_TYPE)
+    .map((task) => task.lineNumber);
+
+  const content = lines.filter((_, index) => !linesToRemove.includes(index)).join("\n");
+
+  // Remove any scheduled tasks
+  await app.vault.modify(file, content);
+
+  return tasks;
 }

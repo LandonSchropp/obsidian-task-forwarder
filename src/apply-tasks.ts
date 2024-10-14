@@ -1,8 +1,8 @@
 import { App, TFile } from "obsidian";
 import { Task } from "./types";
 import { SCHEDULED_TYPE } from "./constants";
-import { readTasks } from "./read-tasks";
 import { displayNotification } from "./notifications";
+import { parseTasks } from "./parse-tasks";
 
 /** The regular expression used to determine the tasks section. */
 export const TASKS_HEADING_REGEX = /tasks/i;
@@ -24,7 +24,7 @@ function convertTaskToString(task: Task): string {
  */
 export async function applyTasks(app: App, file: TFile, tasks: Task[]): Promise<void> {
   const lines = (await app.vault.read(file)).split("\n");
-  const existingTasks = await readTasks(app, file);
+  const existingTasks = parseTasks(lines);
 
   // Find the header line
   const headerIndex = lines.findIndex((line) => TASKS_HEADING_REGEX.test(line));

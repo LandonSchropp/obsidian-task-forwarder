@@ -6,7 +6,7 @@ import { Task } from "./types";
  * @returns The Task object that was parsed from the line, or undefined if the line could not be
  * parsed.
  */
-export function parseTask(line: string): Task | undefined {
+export function parseTask(line: string, lineNumber: number): Task | undefined {
   const match = line.match(/^\s*[-*] \[(.)\] (.*)$/);
 
   if (match === null) {
@@ -16,5 +16,6 @@ export function parseTask(line: string): Task | undefined {
   return {
     type: match[1],
     text: match[2],
+    lineNumber,
   };
 }

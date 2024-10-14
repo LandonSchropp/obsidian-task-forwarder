@@ -1,4 +1,3 @@
-import { App, TFile } from "obsidian";
 import { Task } from "./types";
 import { parseTask } from "./parse-task";
 
@@ -16,7 +15,6 @@ function isTask(task: Task | undefined): task is Task {
  * @param file The note to import the tasks from.
  * @returns The tasks that were imported from the note. The order of the tasks is preserved.
  */
-export async function readTasks(app: App, file: TFile): Promise<Task[]> {
-  const lines = (await app.vault.read(file)).split("\n");
+export function parseTasks(lines: string[]): Task[] {
   return lines.map(parseTask).filter(isTask);
 }
