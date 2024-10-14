@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-list-cycler",
-  "version": "1.1.0",
-  "description": "Cycles between different types of lists and checkboxes in Obisidan",
+  "name": "obsidian-task-forwarder",
+  "version": "1.0.0",
+  "description": "Forwards tasks from previous daily notes",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
