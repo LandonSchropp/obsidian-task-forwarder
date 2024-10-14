@@ -30,8 +30,6 @@ export async function applyTasks(app: App, file: TFile, tasks: Task[]): Promise<
   const headerIndex = lines.findIndex((line) => TASKS_HEADING_REGEX.test(line));
   const insertIndex = headerIndex === -1 ? lines.length : Math.min(headerIndex + 2);
 
-  console.log(tasks, existingTasks);
-
   // Filter out the tasks that are already contained in the note
   tasks = tasks.filter((task) => {
     return !existingTasks.some((existingTask) => existingTask.text === task.text);
