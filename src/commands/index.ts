@@ -26,9 +26,12 @@ export async function forwardTasks(app: App): Promise<void> {
   const incompleteTasks = tasks.filter((task) => task.type === INCOMPLETE_TYPE);
   const actionableTasks = tasks.filter((task) => task.type !== INCOMPLETE_TYPE);
 
+  console.log(incompleteTasks);
+  console.log(actionableTasks);
+
   // If there are any incomplete tasks, display a warning.
   if (incompleteTasks.length > 0) {
-    displayNotification("Some tasks from the previous daily notes could are incomplete!");
+    displayNotification("Some tasks from the previous daily notes are incomplete!");
   }
 
   // Apply the tasks into the current daily note
