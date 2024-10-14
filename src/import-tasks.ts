@@ -2,6 +2,9 @@ import { App, TFile } from "obsidian";
 import { readTasks } from "./read-tasks";
 import { Task } from "./types";
 
+/** A regular expression for an individual task. */
+export const TASK_REGEX = /^\s*[-*] \[(.)\] (.*)$/;
+
 /**
  * This method _destructively_ imports the task from the provided note. Currently, the only tasks
  * that are deleted are scheduled tasks, but that could change in the future.

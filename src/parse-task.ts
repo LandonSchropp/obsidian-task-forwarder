@@ -7,7 +7,7 @@ import { Task } from "./types";
  * parsed.
  */
 export function parseTask(line: string): Task | undefined {
-  const match = line.match(/^\s*[-*] \[(.)\] /);
+  const match = line.match(/^\s*[-*] \[(.)\] (.*)$/);
 
   if (match === null) {
     return;

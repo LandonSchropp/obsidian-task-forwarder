@@ -35,5 +35,5 @@ export async function forwardTasks(app: App): Promise<void> {
   }
 
   // Apply the tasks into the current daily note
-  applyTasks(today, actionableTasks);
+  applyTasks(app, today, actionableTasks);
 }
