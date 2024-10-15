@@ -1,5 +1,7 @@
 # Task Forwarder
 
+This is a plugin for importing tasks from the previous day's daily note to the current day.
+
 This is a plugin build around my _personal_ workflow for importing tasks from previous daily notes.
 Since it's catered specifically to the way that I work, I'm not releasing it to the Obsidian
 Community Plugin store. It also doesn't include any settings for the same reason.
