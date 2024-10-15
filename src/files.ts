@@ -16,10 +16,10 @@ export function isDailyNote(file: TAbstractFile): boolean {
 }
 
 /**
- * Fetches the notes from the provided number of days, sorted in _descending_ order.
+ * Fetches today's an yesterday's daily notes.
  * @param app The Obsidian app instance.
- * @param editor The Obsidian editor instance.
- * @param numberOfDays The number of days to fetch the notes from.
+ * @returns A tuple containing today's and yesterday's daily notes, or undefined if they don't
+ * exist.
  */
 export function fetchDailyNotes(app: App): [TFile | undefined, TFile | undefined] {
   const dailyNotes = app.vault
