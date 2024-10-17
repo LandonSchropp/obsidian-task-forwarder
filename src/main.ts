@@ -1,6 +1,6 @@
 import { Plugin } from "obsidian";
 import { forwardTasks } from "./forward-tasks";
-import { isDailyNote } from "./files";
+import { isTodaysDailyNote } from "./files";
 
 export default class TaskForwarderPlugin extends Plugin {
   async onload() {
@@ -15,7 +15,7 @@ export default class TaskForwarderPlugin extends Plugin {
     this.app.workspace.onLayoutReady(() => {
       this.registerEvent(
         this.app.vault.on("create", (file) => {
-          if (isDailyNote(file)) {
+          if (isTodaysDailyNote(file)) {
             forwardTasks(this.app);
           }
         }),
