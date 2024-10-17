@@ -12,12 +12,14 @@ export default class TaskForwarderPlugin extends Plugin {
     });
 
     // Run the forwarder when a new daily note is created.
-    this.registerEvent(
-      this.app.vault.on("create", (file) => {
-        if (isDailyNote(file)) {
-          forwardTasks(this.app);
-        }
-      }),
-    );
+    this.app.workspace.onLayoutReady(() => {
+      this.registerEvent(
+        this.app.vault.on("create", (file) => {
+          if (isDailyNote(file)) {
+            forwardTasks(this.app);
+          }
+        }),
+      );
+    });
   }
 }
