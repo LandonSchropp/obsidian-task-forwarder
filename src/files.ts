@@ -1,4 +1,5 @@
 import { TFile, App, TAbstractFile } from "obsidian";
+import { Temporal } from "@js-temporal/polyfill";
 
 const DAILY_NOTES_FOLDER = "Daily Notes";
 
@@ -22,10 +23,14 @@ export function isDailyNote(file: TAbstractFile): boolean {
  * exist.
  */
 export function fetchDailyNotes(app: App): [TFile | undefined, TFile | undefined] {
-  const dailyNotes = app.vault
-    .getFiles()
-    .filter(isDailyNote)
-    .sort((a, b) => b.name.localeCompare(a.name));
+  const dailyNotes = app.vault.getFiles().filter(isDailyNote);
 
-  return [dailyNotes[0], dailyNotes[1]];
+  const date = Temporal.Now.plainDateISO();
+  const today = date.toString();
+  const yesterday = date.subtract({ days: 1 }).toString();
+
+  return [
+    dailyNotes.find((note) => note.name.startsWith(today)),
+    dailyNotes.find((note) => note.name.startsWith(yesterday)),
+  ];
 }
