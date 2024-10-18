@@ -4,14 +4,16 @@ import { TO_DO_TYPE, ACTIONABLE_TASK_TYPES } from "./constants";
 import { fetchDailyNotes } from "./files";
 import { importTasks } from "./import-tasks";
 import { displayWarning } from "./notifications";
+import { Temporal } from "@js-temporal/polyfill";
 
 /**
  * Forward tasks from the previous daily notes to the current daily note.
- * @param editor The Obsidian editor to use.
+ * @param app The Obsidian app instance.
+ * @param date The date to forward the tasks for.
  */
-export async function forwardTasks(app: App): Promise<void> {
+export async function forwardTasks(app: App, date: Temporal.PlainDate): Promise<void> {
   // Fetch the daily notes
-  const [today, yesterday] = fetchDailyNotes(app);
+  const [today, yesterday] = fetchDailyNotes(app, date);
 
   // Ensure the notes are present
   if (today === undefined || yesterday === undefined) {
